@@ -4,7 +4,7 @@ const result = document.getElementById('result');
 const restart = document.getElementById('restart');
 const modal = document.querySelector('.modal');
 
-const scoreBoard = {
+const scoreboard = {
     player: 0,
     computer: 0
 };
@@ -15,6 +15,8 @@ function play(e) {
     const playerChoice = e.target.id;
     const computerChoice = getComputerChoice();
     const winner = getWinner(playerChoice, computerChoice);
+
+    showWinner(winner, computerChoice);
 }
 
 
@@ -52,6 +54,38 @@ function getWinner(p, c) {
             return 'player';
         }
     }
+}
+
+function showWinner(winner, computerChoice) {
+    if (winner === 'player') {
+        scoreboard.player++;
+        result.innerHTML = `
+    <h1 class="text-win">You Win</h1>
+    <i class="fas fa-hand-${computerChoice} fa-10x"></i>
+    <p>Computer chose <strong>${computerChoice}</strong></p>
+`
+    }else if (winner === 'computer') {
+        scoreboard.player++;
+        result.innerHTML = `
+    <h1 class="text-lose">You Lose</h1>
+    <i class="fas fa-hand-${computerChoice} fa-10x"></i>
+    <p>Computer chose <strong>${computerChoice}</strong></p>
+`
+    }else {
+        result.innerHTML = `
+    <h1>It's a draw</h1>
+    <i class="fas fa-hand-${computerChoice} fa-10x"></i>
+    <p>Computer chose <strong>${computerChoice}</strong></p>
+`
+    }
+
+    score.innerHTML = `
+        <p>Player: ${scoreboard.player}</p>    
+        <p>Computer: ${scoreboard.computer}</p>
+    `
+
+    modal.style.display = 'block';
+
 }
 
 choices.forEach(choice => choice.addEventListener('click', play));
