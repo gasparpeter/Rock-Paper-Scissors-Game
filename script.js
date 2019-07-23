@@ -62,20 +62,20 @@ function showWinner(winner, computerChoice) {
         result.innerHTML = `
     <h1 class="text-win">You Win</h1>
     <i class="fas fa-hand-${computerChoice} fa-10x"></i>
-    <p>Computer chose <strong>${computerChoice}</strong></p>
+    <p>Computer chose <strong>${computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1)}</strong></p>
 `
     }else if (winner === 'computer') {
-        scoreboard.player++;
+        scoreboard.computer++;
         result.innerHTML = `
     <h1 class="text-lose">You Lose</h1>
     <i class="fas fa-hand-${computerChoice} fa-10x"></i>
-    <p>Computer chose <strong>${computerChoice}</strong></p>
+    <p>Computer chose <strong>${computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1)}</strong></p>
 `
     }else {
         result.innerHTML = `
     <h1>It's a draw</h1>
     <i class="fas fa-hand-${computerChoice} fa-10x"></i>
-    <p>Computer chose <strong>${computerChoice}</strong></p>
+    <p>Computer chose <strong>${computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1)}</strong></p>
 `
     }
 
@@ -88,4 +88,21 @@ function showWinner(winner, computerChoice) {
 
 }
 
+function clearModal(e) {
+    if (e.target === modal ) {
+        modal.style.display ='none';
+    }
+}
+
+function restartGame() {
+    scoreboard.player = 0;
+    scoreboard.computer = 0;
+    score.innerHTML = `
+        <p>Player: 0</p>
+        <p>Computer: 0</p>    
+    `
+}
+
 choices.forEach(choice => choice.addEventListener('click', play));
+window.addEventListener("click", clearModal);
+restart.addEventListener("click", restartGame);
